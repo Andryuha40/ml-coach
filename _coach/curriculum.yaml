@@ -1,0 +1,384 @@
+# Карта курса для /coach.
+#
+# Источники объединены из трёх мест, все пути — относительно корня репозитория:
+#  - content/lectures/  — PDF-слайды лекций 01,02,03,04,05,07,09,10 (без устного
+#    транскрипта) и текстовые транскрипты лекций 11-19 (анонимизированы —
+#    имена участников обсуждений удалены/обезличены перед публикацией)
+#  - content/seminars/  — ноутбуки семинаров (тем 01-10) и текстовые транскрипты
+#    семинаров "2 поток" (темы начиная с кросс-валидации, недели 10-18),
+#    тоже анонимизированы
+#  - content/ml_basics_course/ — git submodule на публичный репозиторий
+#    https://github.com/evgpat/ml_basics_course (Евгений Паточенко, MIT license):
+#    PDF-презентации на каждый lesson_NN и банк homeworks/ с задачами
+#    basic/adv уровня
+#
+# Важное наблюдение: этот курс (лекции 11-19) не идёт строго по программе
+# репозитория — он ведёт две параллельные линии: (a) классический ML почти
+# вплотную по программе репозитория (SVM, kNN, деревья, ансамбли, бустинг,
+# отбор признаков, кластеризация, временные ряды) и (b) отдельный блок про
+# LLM/агентов/RAG/трансформеры, которого в репозитории нет вообще.
+#
+# Схема источников на тему:
+#   lecture             — PDF-слайды (01-10) или транскрипты (11-19) из content/lectures/
+#   seminar_notebook     — ноутбуки из content/seminars/
+#   seminar_transcript   — транскрипты семинаров из content/seminars/
+#   repo_lesson           — файлы из content/ml_basics_course/lesson_NN/
+#   homework               — ноутбуки из content/ml_basics_course/homeworks/
+
+topics:
+  # ---------- Модуль 1: основы ----------
+
+  - id: intro-ai-ml
+    title: "Введение в ИИ и машинное обучение"
+    level: beginner
+    prereqs: []
+    sources:
+      lecture:
+        - "content/lectures/01. Лекция. Искусственный интеллект.pdf"
+        - "content/lectures/02. Лекция. Введение в машинное обучение.pdf"
+      seminar_notebook:
+        - "content/seminars/02_Семинар_Введение_в_машинное_обучение.ipynb"
+      repo_lesson:
+        - "content/ml_basics_course/lesson_01/01. Лекция. Введение в машинное обучение.pdf"
+        - "content/ml_basics_course/lesson_01/01. Семинар. Разведочный анализ данных.ipynb"
+    concepts:
+      - "объект, признаковое описание, типы признаков"
+      - "модель как семейство функций, функция потерь"
+      - "train/test split, зачем нужна тестовая выборка"
+      - "интерфейс sklearn: fit/predict, accuracy_score"
+
+  - id: linear-regression-gd
+    title: "Линейные методы регрессии, градиентный спуск, регуляризация"
+    level: beginner
+    prereqs: [intro-ai-ml]
+    sources:
+      lecture:
+        - "content/lectures/03. Лекция. Линейные методы регрессии.pdf"
+        - "content/lectures/04. Лекция. Градиентный спуск.pdf"
+        - "content/lectures/05. Лекция. Базовые методы обучения моделей.pdf"
+      seminar_notebook:
+        - "content/seminars/06_Семинар_Обучение_линейной_регрессии.ipynb"
+      repo_lesson:
+        - "content/ml_basics_course/lesson_02/02. Лекция. Линейные методы регрессии. Функционал ошибки. Метрики качества. Переобучение.pdf"
+        - "content/ml_basics_course/lesson_02/02. Семинар. Задача предсказания стоимости квартиры в Москве и Московской области.ipynb"
+        - "content/ml_basics_course/lesson_03/03. Лекция. Часть 2. Градиентный спуск.pdf"
+        - "content/ml_basics_course/lesson_03/Градиентный_спуск_вариации.ipynb"
+        - "content/ml_basics_course/lesson_04/04. Лекция. Регуляризация в линейной регрессии. Кросс-валидация. Кодирование категориальных признаков_upd.pdf"
+      homework:
+        - "content/ml_basics_course/homeworks/homework 2 (Linear Regression)/homework_2_linear_regression_(basic).ipynb"
+        - "content/ml_basics_course/homeworks/bonus homework (Gradient Descent)/homework_02_bonus_gradient_descent.ipynb"
+    concepts:
+      - "линейная модель, MSE как функция потерь"
+      - "аналитическое решение vs градиентный спуск"
+      - "learning rate, сходимость, локальные минимумы"
+      - "регуляризация: L2 (Ridge), L1 (Lasso), ElasticNet — формулы и чем отличаются"
+      - "переобучение vs недообучение"
+
+  - id: text-features
+    title: "Работа с текстовыми данными и эмбеддинги (базовый уровень)"
+    level: beginner
+    prereqs: [intro-ai-ml]
+    sources:
+      seminar_notebook:
+        - "content/seminars/03_Семинар_Эмбеддинги_для_текста.ipynb"
+        - "content/seminars/04_Семинар_Преобразование_текстовых_данных.ipynb"
+    concepts:
+      - "bag of words, TF-IDF"
+      - "векторные представления (эмбеддинги) текста"
+      - "базовая предобработка текста"
+
+  - id: eda-and-pipeline
+    title: "Разведочный анализ данных, sklearn Pipeline, кодирование признаков"
+    level: beginner
+    prereqs: [linear-regression-gd]
+    sources:
+      lecture:
+        - "content/lectures/07. Лекция. Класс Pipeline.pdf"
+      seminar_notebook:
+        - "content/seminars/05_Семинар_Разведочный_анализ_данных.ipynb"
+        - "content/seminars/07_Класс_Pipeline.ipynb"
+      repo_lesson:
+        - "content/ml_basics_course/lesson_01/01. Семинар. Разведочный анализ данных (Sweetviz).ipynb"
+        - "content/ml_basics_course/lesson_04/04_Семинар_Регуляризация_в_линейной_регрессии,_кросс_валидация,_кодирование_категориальных_признаков.ipynb"
+        - "content/ml_basics_course/lesson_04/Ноутбук-подсказка. Конструирование_признаков.ipynb"
+      homework:
+        - "content/ml_basics_course/homeworks/homework 1 (Pandas and EDA)/homework_01_(basic).ipynb"
+    concepts:
+      - "EDA: пропуски, выбросы, распределения признаков"
+      - "зачем нужен Pipeline, ColumnTransformer"
+      - "утечка данных (data leakage) при неправильном препроцессинге"
+      - "кодирование категориальных признаков"
+
+  - id: classification-metrics
+    title: "Линейные методы классификации и метрики качества"
+    level: beginner
+    prereqs: [linear-regression-gd]
+    sources:
+      lecture:
+        - "content/lectures/09. Лекция. Линейные методы классификации.pdf"
+        - "content/lectures/10. Лекция. Метрики качества классификации.pdf"
+      repo_lesson:
+        - "content/ml_basics_course/lesson_05/05. Линейные методы классификации.pdf"
+        - "content/ml_basics_course/lesson_05/05. Семинар. Бинарная классификация, логистическая регрессия.ipynb"
+        - "content/ml_basics_course/lesson_05/Классификация (предсказания отклика клиента на маркетинговую кампанию).ipynb"
+      homework:
+        - "content/ml_basics_course/homeworks/homework 3 (Classification)/homework_3_classification_(basic).ipynb"
+    concepts:
+      - "логистическая регрессия, sigmoid, решающее правило"
+      - "precision, recall, F1, confusion matrix"
+      - "ROC-AUC, дисбаланс классов"
+
+  # ---------- Модуль 2: валидация, метрические и опорные методы ----------
+
+  - id: cross-validation-hyperparams
+    title: "Кросс-валидация и подбор гиперпараметров"
+    level: intermediate
+    prereqs: [classification-metrics]
+    sources:
+      lecture:
+        - "content/lectures/05. Лекция. Базовые методы обучения моделей.pdf"
+      seminar_transcript:
+        - "content/seminars/Семинары__10. Запись семинара_2 поток_8 апреля_2026.txt"
+    concepts:
+      - "обобщающая способность, зачем нужна кросс-валидация"
+      - "train/validation/test — зачем нужна третья часть при подборе гиперпараметров"
+      - "k-Fold CV, Stratified k-Fold, Leave-One-Out"
+      - "зависимость качества модели от объёма данных"
+      - "Grid Search vs Random Search vs Successive Halving vs байесовская оптимизация"
+
+  - id: svm
+    title: "Метод опорных векторов (SVM)"
+    level: intermediate
+    prereqs: [classification-metrics]
+    sources:
+      seminar_transcript:
+        - "content/seminars/Семинары__11. Запись семинара_2 поток_15 апреля_2026.txt"
+      repo_lesson:
+        - "content/ml_basics_course/lesson_06/06. Лекция. SVM. Многоклассовая классификация.pdf"
+        - "content/ml_basics_course/lesson_06/06_Семинар_Многоклассовая_классификация.ipynb"
+        - "content/ml_basics_course/lesson_07/07. Семинар. Сравнение классификаторов (визуализация разделяющих границ).ipynb"
+    concepts:
+      - "отступ (margin), опорные векторы"
+      - "hard margin vs soft margin, параметр C"
+      - "hinge loss"
+      - "kernel trick для линейно неразделимых данных"
+
+  - id: knn
+    title: "Метод k ближайших соседей (kNN) и приближённый поиск соседей"
+    level: intermediate
+    prereqs: [classification-metrics]
+    sources:
+      seminar_transcript:
+        - "content/seminars/Семинары__12. Запись семинара_2 поток_22 апреля_2026.txt"
+        - "content/seminars/Семинары__13. Запись семинара_2 поток_29 апреля_2026.txt"
+      repo_lesson:
+        - "content/ml_basics_course/lesson_07/07. Нелинейные методы классификации.pdf"
+        - "content/ml_basics_course/lesson_07/07. Семинар. Метод kNN.ipynb"
+    concepts:
+      - "гипотеза компактности, метрики расстояния, масштабирование признаков"
+      - "взвешенный kNN, метод парзеновского окна"
+      - "вычислительная сложность kNN"
+      - "LSH: случайные проекции, MinHash, мера Жаккара (приближённый поиск соседей)"
+
+  # ---------- Модуль 3: деревья и ансамбли ----------
+
+  - id: decision-trees
+    title: "Решающие деревья"
+    level: intermediate
+    prereqs: [classification-metrics]
+    sources:
+      lecture:
+        - "content/lectures/Лекции__12. Запись лекции_21 апреля 2026.txt"
+      repo_lesson:
+        - "content/ml_basics_course/lesson_08/08. Лекция. Деревья решений. Критерии информативности.pdf"
+        - "content/ml_basics_course/lesson_08/08. Семинар. Деревья решений.ipynb"
+      homework:
+        - "content/ml_basics_course/homeworks/homework 4 (Trees and Ensembles)/homework_4_trees_and_ensembles.ipynb"
+    concepts:
+      - "узлы, корень, листья, глубина дерева, предикаты"
+      - "критерий информативности: Джини, энтропия"
+      - "переобучение дерева, критерии остановки, стрижка (pruning)"
+      - "bias-variance tradeoff на примере дерева"
+
+  - id: ensembles-bagging-boosting
+    title: "Ансамбли: бэггинг, случайный лес, стекинг, бустинг"
+    level: intermediate
+    prereqs: [decision-trees]
+    sources:
+      lecture:
+        - "content/lectures/Лекции__15. Запись лекций_16 мая 2026.txt"
+        - "content/lectures/Лекции__17. Запись лекций_30 мая 2026.txt"
+      seminar_transcript:
+        - "content/seminars/Семинары__15. Запись семинара_2 поток_20 мая_2026.txt"
+      repo_lesson:
+        - "content/ml_basics_course/lesson_09/09. Лекция. Ансамблевые методы.pdf"
+        - "content/ml_basics_course/lesson_09/09_Семинар_Ансамблевые_методы.ipynb"
+        - "content/ml_basics_course/lesson_10/10. Градиентный бустинг.pdf"
+        - "content/ml_basics_course/lesson_10/10. Семинар. Бустинги с подбором гиперпараметров.ipynb"
+      homework:
+        - "content/ml_basics_course/homeworks/homework 4 (Trees and Ensembles)/homework_4_trees_and_ensembles.ipynb"
+    concepts:
+      - "бэггинг, бутстрап, out-of-bag ошибка"
+      - "случайный лес"
+      - "стекинг"
+      - "бустинг (общая идея), XGBoost / CatBoost / LightGBM — чем отличаются"
+
+  - id: class-imbalance
+    title: "Дисбаланс классов"
+    level: intermediate
+    prereqs: [classification-metrics]
+    sources:
+      seminar_transcript:
+        - "content/seminars/Семинары__14. Запись семинара_2 поток_13 мая_2026.txt"
+        - "content/seminars/Семинары__17. Запись семинара_2 поток_3 июня_2026.txt"
+    concepts:
+      - "почему дисбаланс классов ломает наивную оценку качества"
+      - "методы борьбы: взвешивание классов (class_weight), передискретизация"
+      - "ансамбли + андерсэмплинг (Balanced Random Forest)"
+
+  # ---------- Модуль 4: признаки и интерпретируемость ----------
+
+  - id: feature-selection-dim-reduction
+    title: "Отбор признаков и понижение размерности (PCA)"
+    level: intermediate
+    prereqs: [linear-regression-gd]
+    sources:
+      lecture:
+        - "content/lectures/Лекции__17. Запись лекций_30 мая 2026.txt"
+      seminar_transcript:
+        - "content/seminars/Семинары__17. Запись семинара_2 поток_3 июня_2026.txt"
+      repo_lesson:
+        - "content/ml_basics_course/lesson_03/03. Семинар. Регрессия и отбор признаков.ipynb"
+        - "content/ml_basics_course/lesson_12/12. Лекция. Понижение размерности.pdf"
+        - "content/ml_basics_course/lesson_12/12. Семинар. Понижение размерности. Визуализация.ipynb"
+    concepts:
+      - "фильтрационные, оберточные (wrapper) и встроенные (embedded) методы отбора признаков"
+      - "permutation importance, алгоритм Boruta"
+      - "метод главных компонент (PCA) и SVD"
+      - "многомерное шкалирование (MDS), t-SNE — для визуализации, не как признаки в модель"
+
+  - id: explainable-ai
+    title: "Интерпретируемость и объяснимость моделей (XAI)"
+    level: advanced
+    prereqs: [decision-trees, ensembles-bagging-boosting]
+    sources:
+      seminar_transcript:
+        - "content/seminars/Семинары__18. Запись семинара_2 поток_10 июня_2026.txt"
+    concepts:
+      - "зачем нужна объяснимость: бизнес и законодательные требования"
+      - "интерпретируемые модели (линейные, деревья) vs модель-агностичные методы"
+      - "SHAP (значения Шепли)"
+
+  # ---------- Модуль 5: кластеризация и временные ряды ----------
+
+  - id: clustering
+    title: "Кластеризация и визуализация многомерных данных"
+    level: advanced
+    prereqs: [intro-ai-ml]
+    sources:
+      lecture:
+        - "content/lectures/Лекции__19. Запись лекций_13 июня 2026.txt"
+      repo_lesson:
+        - "content/ml_basics_course/lesson_11/11. Лекция. Кластеризация.pdf"
+        - "content/ml_basics_course/lesson_11/11. Семинар. Кластеризация.ipynb"
+    concepts:
+      - "k-means, иерархическая кластеризация"
+      - "DBSCAN, спектральная кластеризация"
+      - "метрики качества кластеризации"
+
+  - id: time-series
+    title: "Временные ряды"
+    level: advanced
+    prereqs: [linear-regression-gd]
+    sources:
+      lecture:
+        - "content/lectures/Лекции__19. Запись лекций_13 июня 2026.txt"
+      repo_lesson:
+        - "content/ml_basics_course/lesson_13/13. Семинар. Time Series.ipynb"
+    concepts:
+      - "компоненты временного ряда, стационарность, автокорреляция"
+      - "классические статистические модели vs адаптивные методы"
+      - "прогнозирование временных рядов методами ML"
+
+  # ---------- Модуль 6: NLP ----------
+
+  - id: nlp-text-classification
+    title: "Обработка текста и классификация текстов (NLP)"
+    level: intermediate
+    prereqs: [text-features, classification-metrics]
+    sources:
+      seminar_transcript:
+        - "content/seminars/Семинары__16. Запись семинара_2 поток_27 мая_2026.txt"
+    concepts:
+      - "токенизация, стоп-слова, лемматизация и стемминг"
+      - "мешок слов и TF-IDF (повторение и практика)"
+      - "классификация эмоций/тональности текста"
+
+  # ---------- Модуль 7: глубокое обучение и LLM/агенты (уникально для курса) ----------
+
+  - id: deep-learning-sequences
+    title: "Рекуррентные сети и трансформеры (RNN, LSTM, attention, BERT, GPT)"
+    level: advanced
+    prereqs: [classification-metrics]
+    sources:
+      lecture:
+        - "content/lectures/Лекции__16. Запись лекций_23 мая 2026.txt"
+      seminar_notebook:
+        - "content/seminars/Знакомство_с_PyTorch.ipynb"
+    concepts:
+      - "RNN и проблема взрыва/затухания градиента"
+      - "LSTM, GRU"
+      - "механизм внимания (attention), архитектура трансформера (энкодер/декодер)"
+      - "от трансформера к BERT и GPT"
+
+  - id: llm-agents-fundamentals
+    title: "Большие языковые модели и агенты: основы"
+    level: advanced
+    prereqs: [intro-ai-ml]
+    sources:
+      lecture:
+        - "content/lectures/Лекции__11. Запись лекции_11 апреля 2026.txt"
+    concepts:
+      - "LLM как статистическая модель продолжения текста"
+      - "что такое агент: память, инструменты, LLM как планировщик"
+      - "типы инструментов агента: информационные, функциональные, автономные"
+      - "риски автономности агентов"
+
+  - id: rag-systems
+    title: "RAG (Retrieval-Augmented Generation)"
+    level: advanced
+    prereqs: [llm-agents-fundamentals]
+    sources:
+      lecture:
+        - "content/lectures/Лекции__13. Запись лекции_25 апреля 2026.txt"
+    concepts:
+      - "зачем нужен RAG, проблема галлюцинаций"
+      - "методология итеративного улучшения RAG: релевантность, реранкинг, чанкинг"
+      - "качество базы знаний, обработка непонятных запросов"
+
+  # ---------- Модуль 8: капстоун (опционально) ----------
+
+  - id: capstone-projects
+    title: "Капстоун-проекты: применение на реальных задачах"
+    level: capstone
+    optional: true
+    prereqs: [eda-and-pipeline, classification-metrics, decision-trees, ensembles-bagging-boosting]
+    sources:
+      repo_lesson:
+        - "content/ml_basics_course/bonus/Прогнозирование оттока клиентов.ipynb"
+        - "content/ml_basics_course/bonus/Предсказание отклика клиента.ipynb"
+    concepts:
+      - "постановка бизнес-задачи как ML-задачи от начала до конца"
+      - "выбор метрики под бизнес-цель"
+
+# ---------- Справочные материалы (не темы с заданиями, просто заметки) ----------
+reference_notes:
+  - title: "Подготовка к собеседованию на позицию Data Scientist"
+    source: "content/seminars/Семинары__14. Запись семинара_2 поток_13 мая_2026.txt"
+    note: "Вторая половина файла (с 'Подготовка к собеседованию') — не ML-тема, а карьерный контент. /coach не генерирует по нему задания, но можно попросить сессию-обзор при подготовке к интервью."
+
+# ---------- Известные пробелы (на будущее) ----------
+gaps:
+  - "Лекции 06 и 08 отсутствуют полностью — ни видео, ни PDF, ни какого-либо файла."
+  - "Недели 14 и 18 не имеют PDF/видео лекции — только запись семинара (учтено выше)."
+  - "Лекции 01-10 — только PDF-слайды, без устного транскрипта (в отличие от 11-19, где есть полный текстовый транскрипт занятия)."

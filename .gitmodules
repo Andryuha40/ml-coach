@@ -1,0 +1,3 @@
+[submodule "content/ml_basics_course"]
+	path = content/ml_basics_course
+	url = https://github.com/evgpat/ml_basics_course.git
