@@ -1,5 +1,6 @@
 {
-  "_comment": "Состояние ученика по темам из curriculum.yaml. Обновляется /coach после каждой попытки. Это чистый шаблон для нового пользователя.",
+  "_comment": "Состояние ученика по темам из curriculum.yaml. Обновляется веткой coach после каждой попытки. Это чистый шаблон для нового пользователя. skill_tier — необязательный уровень подготовки (null | \"junior\" | \"middle\" | \"senior\" | \"pro\"), можно менять в любой момент через любую ветку mlcoach.",
+  "skill_tier": null,
   "topics": {
     "intro-ai-ml": { "status": "not_started", "last_attempt": null, "next_due": null, "attempts": 0, "streak": 0, "weak_points": [] },
     "linear-regression-gd": { "status": "not_started", "last_attempt": null, "next_due": null, "attempts": 0, "streak": 0, "weak_points": [] },

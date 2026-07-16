@@ -41,6 +41,7 @@ topics:
       repo_lesson:
         - "content/ml_basics_course/lesson_01/01. Лекция. Введение в машинное обучение.pdf"
         - "content/ml_basics_course/lesson_01/01. Семинар. Разведочный анализ данных.ipynb"
+    notes: "content/notes/intro-ai-ml.md"
     concepts:
       - "объект, признаковое описание, типы признаков"
       - "модель как семейство функций, функция потерь"
@@ -67,6 +68,7 @@ topics:
       homework:
         - "content/ml_basics_course/homeworks/homework 2 (Linear Regression)/homework_2_linear_regression_(basic).ipynb"
         - "content/ml_basics_course/homeworks/bonus homework (Gradient Descent)/homework_02_bonus_gradient_descent.ipynb"
+    notes: "content/notes/linear-regression-gd.md"
     concepts:
       - "линейная модель, MSE как функция потерь"
       - "аналитическое решение vs градиентный спуск"
@@ -82,6 +84,7 @@ topics:
       seminar_notebook:
         - "content/seminars/03_Семинар_Эмбеддинги_для_текста.ipynb"
         - "content/seminars/04_Семинар_Преобразование_текстовых_данных.ipynb"
+    notes: "content/notes/text-features.md"
     concepts:
       - "bag of words, TF-IDF"
       - "векторные представления (эмбеддинги) текста"
@@ -103,6 +106,8 @@ topics:
         - "content/ml_basics_course/lesson_04/Ноутбук-подсказка. Конструирование_признаков.ipynb"
       homework:
         - "content/ml_basics_course/homeworks/homework 1 (Pandas and EDA)/homework_01_(basic).ipynb"
+    notes: "content/notes/eda-and-pipeline.md"
+    homework_notes: "content/notes/eda-and-pipeline-homework.md"
     concepts:
       - "EDA: пропуски, выбросы, распределения признаков"
       - "зачем нужен Pipeline, ColumnTransformer"
@@ -123,6 +128,8 @@ topics:
         - "content/ml_basics_course/lesson_05/Классификация (предсказания отклика клиента на маркетинговую кампанию).ipynb"
       homework:
         - "content/ml_basics_course/homeworks/homework 3 (Classification)/homework_3_classification_(basic).ipynb"
+    notes: "content/notes/classification-metrics.md"
+    homework_notes: "content/notes/classification-metrics-homework.md"
     concepts:
       - "логистическая регрессия, sigmoid, решающее правило"
       - "precision, recall, F1, confusion matrix"
@@ -139,6 +146,7 @@ topics:
         - "content/lectures/05. Лекция. Базовые методы обучения моделей.pdf"
       seminar_transcript:
         - "content/seminars/Семинары__10. Запись семинара_2 поток_8 апреля_2026.txt"
+    notes: "content/notes/cross-validation-hyperparams.md"
     concepts:
       - "обобщающая способность, зачем нужна кросс-валидация"
       - "train/validation/test — зачем нужна третья часть при подборе гиперпараметров"
@@ -157,6 +165,7 @@ topics:
         - "content/ml_basics_course/lesson_06/06. Лекция. SVM. Многоклассовая классификация.pdf"
         - "content/ml_basics_course/lesson_06/06_Семинар_Многоклассовая_классификация.ipynb"
         - "content/ml_basics_course/lesson_07/07. Семинар. Сравнение классификаторов (визуализация разделяющих границ).ipynb"
+    notes: "content/notes/svm.md"
     concepts:
       - "отступ (margin), опорные векторы"
       - "hard margin vs soft margin, параметр C"
@@ -174,6 +183,7 @@ topics:
       repo_lesson:
         - "content/ml_basics_course/lesson_07/07. Нелинейные методы классификации.pdf"
         - "content/ml_basics_course/lesson_07/07. Семинар. Метод kNN.ipynb"
+    notes: "content/notes/knn.md"
     concepts:
       - "гипотеза компактности, метрики расстояния, масштабирование признаков"
       - "взвешенный kNN, метод парзеновского окна"
@@ -194,6 +204,8 @@ topics:
         - "content/ml_basics_course/lesson_08/08. Семинар. Деревья решений.ipynb"
       homework:
         - "content/ml_basics_course/homeworks/homework 4 (Trees and Ensembles)/homework_4_trees_and_ensembles.ipynb"
+    notes: "content/notes/decision-trees.md"
+    homework_notes: "content/notes/decision-trees-homework.md"
     concepts:
       - "узлы, корень, листья, глубина дерева, предикаты"
       - "критерий информативности: Джини, энтропия"
@@ -217,6 +229,8 @@ topics:
         - "content/ml_basics_course/lesson_10/10. Семинар. Бустинги с подбором гиперпараметров.ipynb"
       homework:
         - "content/ml_basics_course/homeworks/homework 4 (Trees and Ensembles)/homework_4_trees_and_ensembles.ipynb"
+    notes: "content/notes/ensembles-bagging-boosting.md"
+    homework_notes: "content/notes/ensembles-bagging-boosting-homework.md"
     concepts:
       - "бэггинг, бутстрап, out-of-bag ошибка"
       - "случайный лес"
@@ -231,6 +245,7 @@ topics:
       seminar_transcript:
         - "content/seminars/Семинары__14. Запись семинара_2 поток_13 мая_2026.txt"
         - "content/seminars/Семинары__17. Запись семинара_2 поток_3 июня_2026.txt"
+    notes: "content/notes/class-imbalance.md"
     concepts:
       - "почему дисбаланс классов ломает наивную оценку качества"
       - "методы борьбы: взвешивание классов (class_weight), передискретизация"
@@ -251,6 +266,7 @@ topics:
         - "content/ml_basics_course/lesson_03/03. Семинар. Регрессия и отбор признаков.ipynb"
         - "content/ml_basics_course/lesson_12/12. Лекция. Понижение размерности.pdf"
         - "content/ml_basics_course/lesson_12/12. Семинар. Понижение размерности. Визуализация.ipynb"
+    notes: "content/notes/feature-selection-dim-reduction.md"
     concepts:
       - "фильтрационные, оберточные (wrapper) и встроенные (embedded) методы отбора признаков"
       - "permutation importance, алгоритм Boruta"
@@ -264,6 +280,7 @@ topics:
     sources:
       seminar_transcript:
         - "content/seminars/Семинары__16. Запись семинара_2 поток_27 мая_2026.txt"
+    notes: "content/notes/nlp-text-classification.md"
     concepts:
       - "токенизация, стоп-слова, лемматизация и стемминг"
       - "мешок слов и TF-IDF (повторение и практика)"
@@ -276,6 +293,7 @@ topics:
     sources:
       seminar_transcript:
         - "content/seminars/Семинары__18. Запись семинара_2 поток_10 июня_2026.txt"
+    notes: "content/notes/explainable-ai.md"
     concepts:
       - "зачем нужна объяснимость: бизнес и законодательные требования"
       - "интерпретируемые модели (линейные, деревья) vs модель-агностичные методы"
@@ -293,6 +311,7 @@ topics:
       repo_lesson:
         - "content/ml_basics_course/lesson_11/11. Лекция. Кластеризация.pdf"
         - "content/ml_basics_course/lesson_11/11. Семинар. Кластеризация.ipynb"
+    notes: "content/notes/clustering.md"
     concepts:
       - "k-means, иерархическая кластеризация"
       - "DBSCAN, спектральная кластеризация"
@@ -307,6 +326,7 @@ topics:
         - "content/lectures/Лекции__19. Запись лекций_13 июня 2026.txt"
       repo_lesson:
         - "content/ml_basics_course/lesson_13/13. Семинар. Time Series.ipynb"
+    notes: "content/notes/time-series.md"
     concepts:
       - "компоненты временного ряда, стационарность, автокорреляция"
       - "классические статистические модели vs адаптивные методы"
@@ -323,6 +343,7 @@ topics:
         - "content/lectures/Лекции__16. Запись лекций_23 мая 2026.txt"
       seminar_notebook:
         - "content/seminars/Знакомство_с_PyTorch.ipynb"
+    notes: "content/notes/deep-learning-sequences.md"
     concepts:
       - "RNN и проблема взрыва/затухания градиента"
       - "LSTM, GRU"
@@ -336,6 +357,7 @@ topics:
     sources:
       lecture:
         - "content/lectures/Лекции__11. Запись лекции_11 апреля 2026.txt"
+    notes: "content/notes/llm-agents-fundamentals.md"
     concepts:
       - "LLM как статистическая модель продолжения текста"
       - "что такое агент: память, инструменты, LLM как планировщик"
@@ -349,6 +371,7 @@ topics:
     sources:
       lecture:
         - "content/lectures/Лекции__13. Запись лекции_25 апреля 2026.txt"
+    notes: "content/notes/rag-systems.md"
     concepts:
       - "зачем нужен RAG, проблема галлюцинаций"
       - "методология итеративного улучшения RAG: релевантность, реранкинг, чанкинг"
@@ -365,6 +388,7 @@ topics:
       repo_lesson:
         - "content/ml_basics_course/bonus/Прогнозирование оттока клиентов.ipynb"
         - "content/ml_basics_course/bonus/Предсказание отклика клиента.ipynb"
+    notes: "content/notes/capstone-projects.md"
     concepts:
       - "постановка бизнес-задачи как ML-задачи от начала до конца"
       - "выбор метрики под бизнес-цель"

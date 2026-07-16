@@ -1,0 +1,4 @@
+{
+  "_comment": "История собеседований ветки interview. Каждая запись — {date, topics, tier_at_time, verdict, weak_points}. Это чистый шаблон для нового пользователя.",
+  "attempts": []
+}
