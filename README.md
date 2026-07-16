@@ -186,9 +186,11 @@ Claude читает _coach/curriculum.yaml (карта тем) и _coach/progres
 этически чувствительные моменты, если они в кейсе есть (например,
 использование признака, коррелирующего с полом или расой).
 
-В репозитории сейчас 7 кейсов из разных доменов: недвижимость, кредитный
+В репозитории сейчас 11 кейсов из разных доменов: недвижимость, кредитный
 скоринг, контроль качества, маркетинг, ценообразование на сырьё,
-распределение социальных программ, медицинский скрининг.
+распределение социальных программ, медицинский скрининг, биотех
+(многоклассовая классификация), безопасность пищевых продуктов,
+сегментация клиентов (кластеризация), фильтрация спама (NLP).
 
 ### `interview` — мок-собеседование
 
@@ -239,10 +241,11 @@ ml-coach/
 │   ├── lectures/               # PDF-слайды лекций 01-10 + текстовые транскрипты 11-19
 │   ├── seminars/                # ноутбуки семинаров + текстовые транскрипты
 │   ├── notes/                    # готовые консолидированные конспекты по каждой теме
+│   ├── extra_datasets/            # доп. датасеты UCI для кейсов вне тем репозитория Евгения
 │   └── ml_basics_course/          # git submodule → github.com/evgpat/ml_basics_course
 └── _coach/
     ├── curriculum.yaml          # карта из 20 тем: источники, конспект, концепты, пререквизиты
-    ├── cases.yaml                 # каталог из 7 бизнес-кейсов для case
+    ├── cases.yaml                 # каталог из 11 бизнес-кейсов для case
     ├── progress.json               # ваш прогресс по темам + уровень подготовки
     ├── case_log.json                # история пройденных кейсов
     └── interview_log.json            # история собеседований
@@ -270,6 +273,11 @@ ml-coach/
 - `content/ml_basics_course/` — не копия, а git submodule на оригинальный
   репозиторий Евгения Паточенко (MIT license) — при обновлении апстрима
   просто обновите submodule (`git submodule update --remote`).
+- `content/extra_datasets/` — датасеты с [UCI Machine Learning
+  Repository](https://archive.ics.uci.edu/) для кейсов `case`, которые не
+  покрываются датасетами репозитория Евгения Паточенко (кластеризация,
+  многоклассовая классификация, NLP) — источники и описания в
+  `content/extra_datasets/README.md`.
 
 ## Использование в Claude Cowork
 
@@ -281,14 +289,16 @@ ml-coach/
 **1. Скачайте самодостаточный архив** — пересобирать или отдельно
 клонировать репозиторий не нужно, в архиве уже есть всё для всех трёх
 режимов: логика скилла, `curriculum.yaml`/`cases.yaml`, все 24
-консолидированных конспекта (`content/notes/`) и 8 датасетов, на которых
-строятся бизнес-кейсы `case` (≈2 МБ):
+консолидированных конспекта (`content/notes/`) и 12 датасетов (8 из
+репозитория Евгения Паточенко + 4 с UCI), на которых строятся бизнес-кейсы
+`case` (≈2.4 МБ):
 
 **[⬇ Скачать mlcoach-standalone.zip](https://raw.githubusercontent.com/Andryuha40/ml-coach/main/mlcoach-standalone.zip)**
 
 **2. Распакуйте архив** в любую папку на диске — это будет ваша рабочая
 папка, аналог склонированного репозитория (внутри та же структура:
-`_coach/`, `content/notes/`, `content/ml_basics_course/datasets/`).
+`_coach/`, `content/notes/`, `content/ml_basics_course/datasets/`,
+`content/extra_datasets/`).
 
 **3. Загрузите скилл.** В приложении Claude: **Settings → Skills → Add →
 Upload a skill** → выберите файл `SKILL.md` из распакованной папки (или
@@ -318,7 +328,7 @@ Code), поэтому в случае проблем — переходите н
 репозиторий целиком через `git clone` и просто хотите отдельно
 установить скилл в Cowork) — есть более лёгкий
 **[mlcoach.zip](https://raw.githubusercontent.com/Andryuha40/ml-coach/main/.claude/skills/mlcoach.zip)**
-(14 КБ, только `SKILL.md`/`coach.md`/`case.md`/`interview.md`, без данных
+(16 КБ, только `SKILL.md`/`coach.md`/`case.md`/`interview.md`, без данных
 — тогда рабочей папкой в Cowork должен быть склонированный репозиторий).
 
 Если вы форкнули репозиторий и меняли `.claude/skills/mlcoach/`,
@@ -362,8 +372,9 @@ zip_dir(".claude/skills/mlcoach", "mlcoach", ".claude/skills/mlcoach.zip")
 `ml-coach/`, но только с нужными для `coach`/`case`/`interview` файлами
 (`.claude/skills/mlcoach/*.md` → в корень; `_coach/curriculum.yaml`,
 `_coach/cases.yaml` и пустые шаблоны `progress.json`/`case_log.json`/
-`interview_log.json`; `content/notes/`; датасеты из `cases.yaml` —
-`content/ml_basics_course/datasets/<то, что перечислено в cases.yaml>`),
+`interview_log.json`; `content/notes/`; датасеты из `cases.yaml` — каждый
+файл, перечисленный в поле `dataset`, по своему пути
+(`content/ml_basics_course/datasets/...` или `content/extra_datasets/...`)),
 и заархивируйте её тем же способом (`zip_dir(...)` из примера выше).
 
 Проверить архив на обратные слэши перед публикацией (должно быть

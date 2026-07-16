@@ -9,9 +9,13 @@
 как от старшего коллеги перед тем, как решение уйдёт в продакшен.
 
 Состояние живёт в файлах рядом со скиллом (пути относительно корня
-репозитория). Данные кейсов лежат в `content/ml_basics_course/datasets/`
-(git submodule) — перед первым использованием убедись, что submodule
-инициализирован (`git submodule update --init`).
+репозитория). Данные кейсов лежат в двух местах — путь конкретного кейса
+смотри в поле `dataset` в `_coach/cases.yaml`:
+`content/ml_basics_course/datasets/` (git submodule — перед первым
+использованием такого кейса убедись, что submodule инициализирован:
+`git submodule update --init`) или `content/extra_datasets/` (обычные
+файлы репозитория, публичные датасеты UCI, submodule не нужен — см.
+`content/extra_datasets/README.md`).
 
 - `_coach/cases.yaml` — каталог кейсов: бизнес-формулировка (`brief`,
   показывается пользователю как есть) и внутренний чек-лист оценки
