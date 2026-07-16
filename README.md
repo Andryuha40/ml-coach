@@ -339,6 +339,13 @@ zip -r mlcoach.zip mlcoach/          # macOS/Linux
 `content/ml_basics_course/datasets/<то, что перечислено в cases.yaml>`),
 и заархивируйте её тем же способом.
 
+**Важно**: загрузчик скиллов в Cowork отклоняет архив с сообщением
+"Zip file contains path with invalid characters", если внутри есть
+файлы со скобками в имени (в оригинальных датасетах репозитория Евгения
+Паточенко такие есть — `Indian_Banks_Loan_Dataset_(train_small).csv` и
+`_(test_small).csv`). При сборке бандла переименуйте такие файлы, убрав
+скобки, и поправьте пути в скопированном `cases.yaml` соответственно.
+
 ## Сброс прогресса / форк без своей истории
 
 `_coach/progress.json`, `_coach/case_log.json` и `_coach/interview_log.json`
