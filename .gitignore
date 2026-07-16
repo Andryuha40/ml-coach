@@ -4,3 +4,4 @@ __pycache__/
 .ipynb_checkpoints/
 *.zip
 !.claude/skills/mlcoach.zip
+!mlcoach-standalone.zip
