@@ -1,0 +1,276 @@
+# Business case catalog for /case (English-language version).
+#
+# Unlike curriculum.yaml (where topics and concepts are material for
+# drilling one specific piece of knowledge), this is end-to-end business
+# problems on real datasets: some from content/ml_basics_course/datasets
+# (a git submodule pointing at https://github.com/evgpat/ml_basics_course),
+# some from content/extra_datasets (public UCI datasets, added separately
+# for topics not covered by Evgeny's repository datasets — see
+# content/extra_datasets/README.md). The user is NOT told the problem type
+# (regression/classification), the metric, or the model — that's part of
+# what they have to figure out themselves. `evaluator_notes` is an internal
+# checklist for evaluating the solution and is never shown to the user.
+
+cases:
+  - id: real-estate-pricing
+    title: "Pricing apartments for a real estate agency"
+    difficulty: beginner
+    related_topics: [linear-regression-gd, eda-and-pipeline]
+    dataset:
+      - "content/ml_basics_course/datasets/flats.csv"
+    brief: |
+      A real estate agency wants to automatically show clients an estimated
+      apartment price right at their first inquiry, so they don't have to
+      pull in an appraiser for every call. If the system overprices, the
+      client walks to a competitor. If it underprices, the agency loses out
+      on commission. Apartment data: flats.csv. Build a solution and
+      justify why it can be trusted.
+    evaluator_notes: |
+      Regression. Key check: did the user notice the asymmetry in costs
+      (overpricing vs. underpricing) and pick a metric/approach that
+      reflects it (not just bare MSE with no interpretation in currency/
+      percentage terms). Look at whether the train/test split is sound,
+      how outliers are handled (abnormally expensive/cheap apartments),
+      and whether the result is interpretable for a non-technical
+      stakeholder (the agency).
+
+  - id: loan-approval
+    title: "Automatically sorting loan applications"
+    difficulty: intermediate
+    related_topics: [classification-metrics, class-imbalance, cross-validation-hyperparams]
+    dataset:
+      - "content/ml_basics_course/datasets/Indian_Banks_Loan_Dataset_(train_small).csv"
+      - "content/ml_basics_course/datasets/Indian_Banks_Loan_Dataset_(test_small).csv"
+    brief: |
+      A bank wants to automatically sort loan applications into "approve"
+      and "reject" based on historical application data (files attached).
+      A bad borrower who is mistakenly approved costs the bank far more
+      than a good borrower who is mistakenly rejected — but the bank can't
+      stop approving loans altogether either, since it has to make money
+      somehow. Build a solution and justify what tradeoff you made between
+      these two kinds of errors and why.
+    evaluator_notes: |
+      Binary classification, target variable Disbursed. Key check: did the
+      user pick a threshold/metric that reflects the stated cost asymmetry
+      (precision matters more than recall for the "approve" class), rather
+      than defaulting to accuracy? The data is already one-hot encoded — a
+      good test of whether the user notices the class imbalance in the
+      target variable and how they handle it.
+
+  - id: wine-quality-control
+    title: "Quality control for wine via chemical analysis"
+    difficulty: intermediate
+    related_topics: [linear-regression-gd, classification-metrics]
+    dataset:
+      - "content/ml_basics_course/datasets/wineQualityReds.csv"
+    brief: |
+      A winery wants to predict, from the chemical analysis of a batch of
+      wine (before tasting), the quality score that tasters would end up
+      giving it, so they can reject problematic batches early and not
+      waste expert time on samples that are clearly weak. Data:
+      wineQualityReds.csv. Build a solution.
+    evaluator_notes: |
+      The target variable, quality, is an integer 0-10, but in practice
+      it's concentrated in a narrow range (5-6, mostly). It's deliberately
+      left unstated whether this is regression or classification — it's
+      interesting to see how the user decides and justifies this
+      themselves (both approaches are defensible). Look for a deliberate,
+      justified choice, not a "one true answer".
+
+  - id: income-targeting
+    title: "Targeting premium offers"
+    difficulty: advanced
+    related_topics: [classification-metrics, explainable-ai]
+    dataset:
+      - "content/ml_basics_course/datasets/adult_census_income.csv"
+    brief: |
+      The marketing department for a premium credit card wants to identify
+      people with income above 50K from survey/census-style data (sourced
+      externally), in order to offer them a premium product. Data:
+      adult_census_income.csv. Build a solution and prepare a short summary
+      for a manager who will have to defend it to the company's legal
+      department.
+    evaluator_notes: |
+      Classification (salary >50K/<=50K). This is an ethically sensitive
+      case: the data includes race and sex. Key check — did the user
+      notice, unprompted, the risk of using these features for marketing
+      targeting, and how did they argue for including/excluding them? If
+      the user didn't raise this at all, that's the main point of
+      feedback, even if the model is technically good.
+
+  - id: onion-price-forecast
+    title: "Forecasting onion prices for a wholesale buyer"
+    difficulty: advanced
+    related_topics: [time-series, linear-regression-gd]
+    dataset:
+      - "content/ml_basics_course/datasets/Indian_Onion_Market_Arrivals.csv"
+    brief: |
+      A wholesale buyer wants to know ahead of time whether the price of
+      onions will rise or fall over the next month in a specific market,
+      in order to decide whether to buy a batch now or wait. Supply and
+      price data by market: Indian_Onion_Market_Arrivals.csv. Build a
+      solution.
+    evaluator_notes: |
+      Effectively a time series split by market/state/city. Key check: did
+      the user avoid the classic mistake of a random train/test split on
+      time series data (leaking the future into the past) — a fair
+      evaluation needs a split by time. Assess whether the user accounted
+      for seasonality/trend rather than just throwing the date in as a
+      number into an ordinary regression.
+
+  - id: crime-resource-allocation
+    title: "Allocating social programs across districts"
+    difficulty: advanced
+    related_topics: [linear-regression-gd, explainable-ai]
+    dataset:
+      - "content/ml_basics_course/datasets/crimedata.csv"
+    brief: |
+      A city administration wants to allocate additional social program
+      funding to the districts with the highest expected rise in crime,
+      using demographic and socioeconomic data by district. Data:
+      crimedata.csv. Build a solution and prepare a short summary for the
+      administration.
+    evaluator_notes: |
+      Regression (target variable is a crime-rate measure in the dataset).
+      This is a SEVERELY ethically sensitive case: the dataset includes
+      population shares by race (racepctblack, racePctWhite, etc.) as
+      features, and the decision directly affects budget allocation across
+      districts — a real-world scenario for biased policing/resource
+      allocation. Main check: did the user raise this themselves, and did
+      they avoid using the race-related features thoughtlessly as "just
+      another feature"? If not, this must be the first point of feedback,
+      regardless of technical quality.
+
+  - id: diabetes-risk-screening
+    title: "Diabetes risk screening at a routine checkup"
+    difficulty: intermediate
+    related_topics: [classification-metrics, class-imbalance]
+    dataset:
+      - "content/ml_basics_course/datasets/diabetes.csv"
+    brief: |
+      A clinic wants to flag patients at elevated risk of diabetes for
+      further testing, based on results from a standard routine checkup.
+      Missing a patient with real risk is significantly worse than sending
+      a healthy person for an extra test. Data: diabetes.csv. Build a
+      solution and justify your choice.
+    evaluator_notes: |
+      Classification. The cost asymmetry here is the MIRROR IMAGE of the
+      loan-approval case (there, precision matters more; here, recall
+      does). This case is deliberately paired with that one, to check
+      whether the user picks a metric based on justifying the business
+      cost of an error each time, rather than a template of "I always do
+      it this way".
+
+  - id: protein-localization-lab
+    title: "Predicting a protein's location in the cell for a biotech lab"
+    difficulty: advanced
+    related_topics: [knn, svm, decision-trees, cross-validation-hyperparams]
+    dataset:
+      - "content/extra_datasets/yeast.csv"
+    brief: |
+      A biotech lab studying yeast cells wants to automatically predict
+      where in the cell a protein will end up (nucleus, mitochondrion,
+      membrane, etc.) from the biochemical analysis of its signal sequence
+      — so they can prioritize expensive localization experiments on the
+      proteins with the least obvious prediction. Data: yeast.csv. Build a
+      solution and justify your choice of model.
+    evaluator_notes: |
+      Multiclass classification (10 classes: class), strongly imbalanced —
+      some classes (ERL: 5 objects, POX: 20) are represented by literally a
+      handful of examples. Key check: did the user notice the imbalance and
+      pick a metric that reflects it (macro/weighted F1, balanced
+      accuracy), rather than default accuracy (which is deceptively high on
+      this dataset thanks to the dominant CYT/NUC/MIT classes). A good
+      solution explicitly discusses that reliable recall is nearly
+      unachievable for the rarest classes given this amount of data, and
+      proposes a sensible compromise (merging rare classes, honestly
+      acknowledging the limitation), rather than staying silent about it.
+
+  - id: mushroom-safety-screening
+    title: "Automated edibility screening of mushrooms for a foraging company"
+    difficulty: intermediate
+    related_topics: [decision-trees, ensembles-bagging-boosting]
+    dataset:
+      - "content/extra_datasets/mushroom.csv"
+    brief: |
+      A company that buys wild-foraged mushrooms from collectors for resale
+      wants to automate the initial screening of batches by morphological
+      features (cap shape, odor, gill color, etc.), to filter out
+      potentially poisonous specimens before manual review by a mycologist.
+      Letting a poisonous mushroom through as edible is an unacceptable
+      error, no matter how many edible mushrooms end up rejected at this
+      stage as a result. Data: mushroom.csv. Build a solution and justify
+      which models you trust for a task like this, and why.
+    evaluator_notes: |
+      Binary classification (class: e/p). Key check: did the user pick a
+      threshold/metric tuned for recall on the "poisonous" class (missing
+      a poisonous mushroom is unacceptable), rather than plain accuracy?
+      All features are categorical (encoding needed), and one feature has
+      missing values ("?" in stalk_root) — check that the user noticed
+      this and handled it deliberately rather than silently ignoring it.
+      A good opportunity to compare a single tree against an ensemble
+      (bagging/boosting): the dataset is nearly linearly separable on
+      individual features (e.g., odor) — a strong user will notice this
+      and discuss that the task is simpler than it looks at first glance,
+      and won't over-engineer the solution unnecessarily.
+
+  - id: wholesale-customer-segmentation
+    title: "Customer segmentation for a wholesale distributor"
+    difficulty: intermediate
+    related_topics: [clustering, feature-selection-dim-reduction]
+    dataset:
+      - "content/extra_datasets/wholesale_customers.csv"
+    brief: |
+      A wholesale food distributor wants to split its customers (cafes,
+      restaurants, retail stores, etc.) into groups based on the pattern of
+      their annual purchases, in order to offer each group its own loyalty
+      program and product-range strategy, instead of one program for
+      everyone. Data on customers' annual spend by product category:
+      wholesale_customers.csv. Build a solution and describe the resulting
+      groups in language the sales team can use.
+    evaluator_notes: |
+      A clustering task — there's no explicit target variable (Channel/
+      Region can be used afterward to sanity-check the result, but not as
+      training features — check that the user didn't leak them in as
+      features). Spend by category is heavily skewed (a few very large
+      customers) and strongly correlated between categories
+      (Grocery-Detergents_Paper, Grocery-Milk) — a good solution either
+      log-transforms spend or explicitly discusses multicollinearity and/or
+      reduces dimensionality (PCA) before clustering. Check for a justified
+      choice of number of clusters (elbow/silhouette, not "by eye") and a
+      substantive business description of each cluster (not just "cluster
+      0, cluster 1"), not only technical clustering-quality metrics.
+
+  - id: sms-spam-filter
+    title: "Spam SMS filter for a mobile carrier"
+    difficulty: intermediate
+    related_topics: [nlp-text-classification, classification-metrics]
+    dataset:
+      - "content/extra_datasets/sms_spam_collection.csv"
+    brief: |
+      A mobile carrier is getting subscriber complaints about spam SMS and
+      wants to build an automatic filter that flags suspicious messages
+      before they reach the subscriber. A legitimate message that gets
+      mistakenly blocked (e.g., a bank confirmation code) is a far more
+      sensitive error for the subscriber than one missed promotional spam
+      message. Data: sms_spam_collection.csv (message text + a ham/spam
+      label). Build a solution and justify at what confidence level you'd
+      start flagging a message as suspicious.
+    evaluator_notes: |
+      Binary text classification (label: ham/spam), imbalanced classes
+      (~13% spam). Key check: did the user meaningfully turn text into
+      features (bag of words/TF-IDF etc., rather than, say, just message
+      length), did they account for the cost asymmetry when picking a
+      threshold/metric (a falsely blocked ham message is worse than a
+      missed spam message — precision on the ham class matters, or an
+      explicitly justified tradeoff via precision-recall for spam), and did
+      they avoid data leakage (e.g., fitting TF-IDF/vectorization on the
+      whole dataset before splitting into train/test).
+
+# Cases that require external data (not included in the main rotation, but
+# can be requested explicitly) — the repository's bonus notebooks use data
+# that isn't in the submodule:
+#  - Customer churn forecasting: requires BankChurners.csv from Kaggle
+#    (manual download, link is inside the notebook).
+#  - Customer response prediction: pulls ifood_df_raw.csv from
+#    https://github.com/evgpat/datasets — available via a direct link.

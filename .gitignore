@@ -5,3 +5,5 @@ __pycache__/
 *.zip
 !.claude/skills/mlcoach.zip
 !mlcoach-standalone.zip
+!.claude/skills/mlcoach-en.zip
+!mlcoach-standalone-en.zip

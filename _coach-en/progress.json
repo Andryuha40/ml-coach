@@ -1,0 +1,26 @@
+{
+  "_comment": "Learner state per topic from curriculum.yaml. Updated by the coach branch after every attempt. This is a clean template for a new user. skill_tier is an optional skill level (null | \"junior\" | \"middle\" | \"senior\" | \"pro\"), can be changed at any time via any mlcoach branch.",
+  "skill_tier": null,
+  "topics": {
+    "intro-ai-ml": { "status": "not_started", "last_attempt": null, "next_due": null, "attempts": 0, "streak": 0, "weak_points": [] },
+    "linear-regression-gd": { "status": "not_started", "last_attempt": null, "next_due": null, "attempts": 0, "streak": 0, "weak_points": [] },
+    "text-features": { "status": "not_started", "last_attempt": null, "next_due": null, "attempts": 0, "streak": 0, "weak_points": [] },
+    "eda-and-pipeline": { "status": "not_started", "last_attempt": null, "next_due": null, "attempts": 0, "streak": 0, "weak_points": [] },
+    "classification-metrics": { "status": "not_started", "last_attempt": null, "next_due": null, "attempts": 0, "streak": 0, "weak_points": [] },
+    "cross-validation-hyperparams": { "status": "not_started", "last_attempt": null, "next_due": null, "attempts": 0, "streak": 0, "weak_points": [] },
+    "svm": { "status": "not_started", "last_attempt": null, "next_due": null, "attempts": 0, "streak": 0, "weak_points": [] },
+    "knn": { "status": "not_started", "last_attempt": null, "next_due": null, "attempts": 0, "streak": 0, "weak_points": [] },
+    "decision-trees": { "status": "not_started", "last_attempt": null, "next_due": null, "attempts": 0, "streak": 0, "weak_points": [] },
+    "ensembles-bagging-boosting": { "status": "not_started", "last_attempt": null, "next_due": null, "attempts": 0, "streak": 0, "weak_points": [] },
+    "class-imbalance": { "status": "not_started", "last_attempt": null, "next_due": null, "attempts": 0, "streak": 0, "weak_points": [] },
+    "feature-selection-dim-reduction": { "status": "not_started", "last_attempt": null, "next_due": null, "attempts": 0, "streak": 0, "weak_points": [] },
+    "explainable-ai": { "status": "not_started", "last_attempt": null, "next_due": null, "attempts": 0, "streak": 0, "weak_points": [] },
+    "clustering": { "status": "not_started", "last_attempt": null, "next_due": null, "attempts": 0, "streak": 0, "weak_points": [] },
+    "time-series": { "status": "not_started", "last_attempt": null, "next_due": null, "attempts": 0, "streak": 0, "weak_points": [] },
+    "nlp-text-classification": { "status": "not_started", "last_attempt": null, "next_due": null, "attempts": 0, "streak": 0, "weak_points": [] },
+    "deep-learning-sequences": { "status": "not_started", "last_attempt": null, "next_due": null, "attempts": 0, "streak": 0, "weak_points": [] },
+    "llm-agents-fundamentals": { "status": "not_started", "last_attempt": null, "next_due": null, "attempts": 0, "streak": 0, "weak_points": [] },
+    "rag-systems": { "status": "not_started", "last_attempt": null, "next_due": null, "attempts": 0, "streak": 0, "weak_points": [] },
+    "capstone-projects": { "status": "not_started", "last_attempt": null, "next_due": null, "attempts": 0, "streak": 0, "weak_points": [] }
+  }
+}
