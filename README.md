@@ -323,12 +323,39 @@ Code), поэтому в случае проблем — переходите н
 
 Если вы форкнули репозиторий и меняли `.claude/skills/mlcoach/`,
 `_coach/curriculum.yaml` или конспекты — оба архива нужно пересобрать
-самостоятельно и закоммитить заново. Для `mlcoach.zip`:
+самостоятельно и закоммитить заново.
+
+**Важно — не используйте `Compress-Archive` из Windows PowerShell.**
+Загрузчик скиллов в Cowork отклоняет архив с ошибкой "Zip file contains
+path with invalid characters", если пути внутри разделены обратным
+слэшем (`\`) вместо `/`, как того требует формат ZIP — а именно так
+`Compress-Archive` в Windows PowerShell 5.1 и записывает пути (это
+известный баг именно этой команды; `zip`/`Compress-Archive` в PowerShell
+7+ на других системах может вести себя иначе, но лучше не рисковать).
+Собирайте архив одним из способов ниже — оба гарантированно пишут `/`:
+
+macOS/Linux/WSL:
 
 ```bash
 cd .claude/skills
-zip -r mlcoach.zip mlcoach/          # macOS/Linux
-# или в PowerShell: Compress-Archive -Path mlcoach -DestinationPath mlcoach.zip
+zip -r mlcoach.zip mlcoach/
+```
+
+Python (работает одинаково на любой ОС, в том числе в обычном Windows
+PowerShell — не полагается на `Compress-Archive`):
+
+```python
+import zipfile, os
+
+def zip_dir(src_root, arc_prefix, out_path):
+    with zipfile.ZipFile(out_path, "w", zipfile.ZIP_DEFLATED) as zf:
+        for dirpath, _, filenames in os.walk(src_root):
+            for fn in filenames:
+                full = os.path.join(dirpath, fn)
+                rel = os.path.relpath(full, src_root).replace(os.sep, "/")
+                zf.write(full, arc_prefix + "/" + rel)
+
+zip_dir(".claude/skills/mlcoach", "mlcoach", ".claude/skills/mlcoach.zip")
 ```
 
 Для `mlcoach-standalone.zip` — соберите папку с той же структурой, что и
@@ -337,14 +364,23 @@ zip -r mlcoach.zip mlcoach/          # macOS/Linux
 `_coach/cases.yaml` и пустые шаблоны `progress.json`/`case_log.json`/
 `interview_log.json`; `content/notes/`; датасеты из `cases.yaml` —
 `content/ml_basics_course/datasets/<то, что перечислено в cases.yaml>`),
-и заархивируйте её тем же способом.
+и заархивируйте её тем же способом (`zip_dir(...)` из примера выше).
 
-**Важно**: загрузчик скиллов в Cowork отклоняет архив с сообщением
-"Zip file contains path with invalid characters", если внутри есть
-файлы со скобками в имени (в оригинальных датасетах репозитория Евгения
-Паточенко такие есть — `Indian_Banks_Loan_Dataset_(train_small).csv` и
-`_(test_small).csv`). При сборке бандла переименуйте такие файлы, убрав
-скобки, и поправьте пути в скопированном `cases.yaml` соответственно.
+Проверить архив на обратные слэши перед публикацией (должно быть
+`entries with backslash: 0`):
+
+```python
+import struct
+with open("archive.zip", "rb") as f:
+    data = f.read()
+pos = 0
+while (idx := data.find(b"PK\x01\x02", pos)) != -1:
+    n = struct.unpack("<H", data[idx+28:idx+30])[0]
+    name = data[idx+46:idx+46+n]
+    if b"\\" in name:
+        print("BACKSLASH:", name)
+    pos = idx + 4
+```
 
 ## Сброс прогресса / форк без своей истории
 
